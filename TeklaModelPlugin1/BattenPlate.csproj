@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+	<PropertyGroup>
+		<Copyright>Copyright © 1992-$([System.DateTime]::Now.ToString("yyyy")) Trimble Solutions Corporation and its licensors. All rights reserved.</Copyright>
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<TargetFramework>net48</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<OutputPath>Installer/BuildDrop</OutputPath>
+		<RootNamespace>TeklaModelPlugin1</RootNamespace>
+		<AssemblyName>TeklaModelPlugin1</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+</Project>

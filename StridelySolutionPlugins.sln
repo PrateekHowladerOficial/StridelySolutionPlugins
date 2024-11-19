@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Apex_haunch_connection", "Apex_haunch_connection\Apex_haunch_connection.csproj", "{8B613B9A-1779-421E-A8F2-BC34FE833E3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattenPlate1", "TeklaModelPlugin1\BattenPlate1.csproj", "{BCD99963-FBC3-4393-B2BA-23BE0C8A07A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Type17_ClipToStiffener", "Type17_ClipToStiffener\Type17_ClipToStiffener.csproj", "{6968AD83-0C3F-40B9-8B74-974D6BE65680}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaPH", "TeklaPH\TeklaPH.csproj", "{43BDDCFE-F815-488D-859B-A3C327C8D355}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API _Connection", "API _Connection\API _Connection.csproj", "{52134A7C-9E89-4815-9E81-E4AF8C5086AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B613B9A-1779-421E-A8F2-BC34FE833E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B613B9A-1779-421E-A8F2-BC34FE833E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B613B9A-1779-421E-A8F2-BC34FE833E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B613B9A-1779-421E-A8F2-BC34FE833E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD99963-FBC3-4393-B2BA-23BE0C8A07A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD99963-FBC3-4393-B2BA-23BE0C8A07A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD99963-FBC3-4393-B2BA-23BE0C8A07A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD99963-FBC3-4393-B2BA-23BE0C8A07A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6968AD83-0C3F-40B9-8B74-974D6BE65680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6968AD83-0C3F-40B9-8B74-974D6BE65680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6968AD83-0C3F-40B9-8B74-974D6BE65680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6968AD83-0C3F-40B9-8B74-974D6BE65680}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43BDDCFE-F815-488D-859B-A3C327C8D355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43BDDCFE-F815-488D-859B-A3C327C8D355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43BDDCFE-F815-488D-859B-A3C327C8D355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43BDDCFE-F815-488D-859B-A3C327C8D355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D2CC43F-7368-4274-823E-9BA33325FC8A}
+	EndGlobalSection
+EndGlobal
