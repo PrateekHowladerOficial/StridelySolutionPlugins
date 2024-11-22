@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaPH", "TeklaPH\TeklaPH.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API _Connection", "API _Connection\API _Connection.csproj", "{52134A7C-9E89-4815-9E81-E4AF8C5086AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklaApiConnections101", "TeklaApiConnections101\TeklaApiConnections101.csproj", "{64A845D4-3283-439B-B667-48CD4F41189F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52134A7C-9E89-4815-9E81-E4AF8C5086AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64A845D4-3283-439B-B667-48CD4F41189F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A845D4-3283-439B-B667-48CD4F41189F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64A845D4-3283-439B-B667-48CD4F41189F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64A845D4-3283-439B-B667-48CD4F41189F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
