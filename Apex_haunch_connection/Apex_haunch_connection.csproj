@@ -24,16 +24,23 @@
 	  </COMReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Tekla.Structures" Version="2023.0.0" />
-	  <PackageReference Include="Tekla.Structures.Datatype" Version="2023.0.0" />
+	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Catalogs" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
 	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Model" Version="2023.0.0" />
+	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
 	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\TeklaPH\TeklaPH.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Reference Include="Tekla.Common.Geometry">
+	    <HintPath>..\..\..\..\..\..\Program Files\Tekla Structures\2023.0\bin\Tekla.Common.Geometry.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Tekla.Structures">
+	    <HintPath>..\..\..\..\..\..\Program Files\Tekla Structures\2023.0\bin\Tekla.Structures.dll</HintPath>
+	  </Reference>
 	  <Reference Include="Tekla.Structures.Model">
 	    <HintPath>..\..\class liberary\TeklaPH\TeklaPH\bin\Debug\Tekla.Structures.Model.dll</HintPath>
 	  </Reference>
