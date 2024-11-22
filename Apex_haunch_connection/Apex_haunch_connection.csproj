@@ -10,14 +10,36 @@
 		<AssemblyName>Apex_haunch_connection</AssemblyName>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Datatype" Version="2021.0.0" />
+	  <COMReference Include="{9df99bfd-6bcc-3877-9be7-c4eecbe73805}">
+	    <WrapperTool>tlbimp</WrapperTool>
+	    <VersionMinor>0</VersionMinor>
+	    <VersionMajor>2023</VersionMajor>
+	    <Guid>9df99bfd-6bcc-3877-9be7-c4eecbe73805</Guid>
+	  </COMReference>
+	  <COMReference Include="{b254c733-10c0-375c-ac27-166e2162352b}">
+	    <WrapperTool>tlbimp</WrapperTool>
+	    <VersionMinor>0</VersionMinor>
+	    <VersionMajor>2023</VersionMajor>
+	    <Guid>b254c733-10c0-375c-ac27-166e2162352b</Guid>
+	  </COMReference>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Tekla.Structures" Version="2023.0.0" />
+	  <PackageReference Include="Tekla.Structures.Datatype" Version="2023.0.0" />
 	  <PackageReference Include="Tekla.Structures.Dialog" Version="2021.0.0" />
-	  <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
+	  <PackageReference Include="Tekla.Structures.Model" Version="2023.0.0" />
 	  <PackageReference Include="Tekla.Structures.Plugins" Version="2021.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\TeklaPH\TeklaPH.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="Tekla.Structures.Model">
+	    <HintPath>..\..\class liberary\TeklaPH\TeklaPH\bin\Debug\Tekla.Structures.Model.dll</HintPath>
+	  </Reference>
+	  <Reference Include="TeklaPH">
+	    <HintPath>..\TeklaPH\bin\Debug\TeklaPH.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Properties\Resources.Designer.cs">

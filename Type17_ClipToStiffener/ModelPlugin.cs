@@ -743,7 +743,7 @@ namespace Type17_ClipToStiffener
             {
                 faces.Add(f.Face);
             } 
-            List<Face> cp_faces = faces.OrderByDescending(fa => Faces.CalculateFaceArea(new Faces.Face_ { Face = fa , Vector = fa.Normal }).ToList());
+            List<Face> cp_faces = faces.OrderByDescending(fa => Faces.CalculateFaceArea(new Faces.Face_ { Face = fa , Vector = fa.Normal })).ToList();
             faces.Clear();
             List<Faces.Face_> beam1_faces = Faces.Get_faces(beam1, true);
             List< Faces.Face_> beam2_faces = Faces.Get_faces(beam2, false);
@@ -751,7 +751,7 @@ namespace Type17_ClipToStiffener
             {
                 faces.Add(f.Face); 
             }
-            List<Face> beam2_Face = faces.OrderByDescending(fa => Faces.CalculateFaceArea(new Faces.Face_ { Face = fa , Vector = fa.Normal }).ToList());
+            List<Face> beam2_Face = faces.OrderByDescending(fa => Faces.CalculateFaceArea(new Faces.Face_ { Face = fa , Vector = fa.Normal })).ToList();
             ArrayList beam1_centerLine = beam1.GetCenterLine(false);
             ArrayList beam2_centerLine = beam2.GetCenterLine(false);
              Faces.Face_ face = null;
