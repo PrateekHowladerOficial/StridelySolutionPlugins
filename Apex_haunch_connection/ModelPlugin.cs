@@ -214,15 +214,23 @@ namespace Apex_haunch_connection
         #region Overrides
         public override List<InputDefinition> DefineInput()
         {
-            List<InputDefinition> PointList = new List<InputDefinition>();
-            Picker Picker = new Picker();
-            var part = Picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Pick Primary object");
-            var partno1 = part;
-            PointList.Add(new InputDefinition(partno1.Identifier));
-            part = Picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Pick Secondary object");
-            var partno2 = part;
-            PointList.Add(new InputDefinition(partno2.Identifier));
-            return PointList;
+            List<InputDefinition> RafterList = new List<InputDefinition>();
+
+            try
+            {
+                Picker Picker = new Picker();
+                var rafter1 = Picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Pick the 1st rafter");
+                RafterList.Add(new InputDefinition(rafter1.Identifier));
+
+                var rafter2 = Picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Pick the 2nd rafter");
+                RafterList.Add(new InputDefinition(rafter2.Identifier));
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            return RafterList;
         }
 
         public override bool Run(List<InputDefinition> Input)

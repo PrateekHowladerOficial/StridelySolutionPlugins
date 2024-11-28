@@ -24,10 +24,10 @@ using static Tekla.Structures.Model.Position;
 
 namespace API__Connection
 {
-    public partial class Form2 : Form
+    public partial class EndplateConnection : Form
     {
         Model myModel = new Model();
-        public Form2()
+        public EndplateConnection()
         {
             InitializeComponent();
         }

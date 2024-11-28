@@ -15,7 +15,7 @@ using static Tekla.Structures.Model.Position;
 using TSG = Tekla.Structures.Geometry3d;
 using static TeklaPH.Faces;
 
-namespace TeklaPH
+namespace TeklaPH1
 {
     public class Faces
     {
@@ -301,7 +301,7 @@ namespace TeklaPH
 
             return newPoint;
         }
-        public static Point FindPerpendicularIntersection(Point line1Start, Point line1End, Point pointOnLine1, Point line2Start, Point line2End)
+        public Point FindPerpendicularIntersection(Point line1Start, Point line1End, Point pointOnLine1, Point line2Start, Point line2End)
         {
             Vector vector = new Vector(line1Start.X - line1End.X, line1Start.Y - line1End.Y, line1Start.Z - line1End.Z);
             GeometricPlane plane = new GeometricPlane(pointOnLine1, vector);
@@ -446,7 +446,7 @@ namespace TeklaPH
     }
     public class Fitting
     {
-        public static Face_ Edge_fitting(Part beam1, Part beam2, double gap)
+        public Face_ Edge_fitting(Part beam1, Part beam2, double gap)
         {
             Faces faces = new Faces();
             Line line = new Line();
@@ -480,7 +480,7 @@ namespace TeklaPH
 
             return face;
         }
-        public static Face_ Web_Fitting(Part beam1, Part beam2)
+        private Face_ Web_Fitting(Part beam1, Part beam2)
         {
             Faces faces = new Faces();
             Line line = new Line();
@@ -513,40 +513,7 @@ namespace TeklaPH
 
             return face;
         }
-        public static Face_ Web_Fitting(Part beam1, Part beam2, double gap)
-        {
-            Faces faces = new Faces();
-            Line line = new Line();
-            List<Face_> beam1_faces = Get_faces(beam1, true);
-            ArrayList beam1_centerLine = beam1.GetCenterLine(false);
-            ArrayList beam2_centerLine = beam2.GetCenterLine(false);
-            Face_ face = null;
-
-            Point mid = Line.MidPoint(beam2_centerLine[0] as Point, beam2_centerLine[1] as Point);
-            if (Distance.PointToPlane(mid, ConvertFaceToGeometricPlane(beam1_faces[2].Face)) < Distance.PointToPlane(mid, ConvertFaceToGeometricPlane(beam1_faces[8].Face)))
-            {
-                face = beam1_faces[2];
-            }
-            else
-            {
-                face = beam1_faces[8];
-            }
-            Tekla.Structures.Model.Fitting fitting = new Tekla.Structures.Model.Fitting();
-            fitting.Plane = new Plane();
-            Vector vector = face.Vector;
-            Point point = (Get_Points(face.Face)[0] as Point) + face.Vector * gap;
-
-            fitting.Plane.Origin = point;
-
-            faces.GetFaceAxes(face.Face, out Vector xAxis, out Vector yAxis);
-            fitting.Plane.AxisX = xAxis;
-            fitting.Plane.AxisY = yAxis;
-            fitting.Father = beam2;
-            fitting.Insert();
-
-            return face;
-        }
-        public static void BeamBooleanCut(Part beam1, Part beam2, double clearance, double gap, double thickness)
+        private void BeamBooleanCut(Part beam1, Part beam2, double clearance, double gap, double thickness)
         {
             Faces faces = new Faces();
             Line line = new Line();
@@ -598,7 +565,7 @@ namespace TeklaPH
                 }
             }
         }
-        public static void SameProfileEdgeJoint(Part part1, Part part2)
+        private void SameProfileEdgeJoint(Part part1, Part part2)
         {
             Faces faces = new Faces();
             Line line = new Line();
@@ -671,22 +638,6 @@ namespace TeklaPH
             fitting1.Plane.AxisY = new Tekla.Structures.Geometry3d.Line(mid, point3).Direction;
             fitting1.Father = part2;
             fitting1.Insert();
-        }
-        public static void PartFitting(Beam beam1, Beam beam2,double gap)
-        {
-            List<Face_> face_s = Get_faces(beam1,true);
-            ArrayList arrayList = beam2.GetCenterLine(false);
-            Face_ face_ = Web_Fitting(beam1, beam2, gap);
-            if (face_ != null)
-            {
-                Point p0 =Line.MidPoint(arrayList[0] as Point, arrayList[1] as Point),
-                    p1 = Projection.PointToPlane(p0, ConvertFaceToGeometricPlane(face_s[6].Face)),
-                    p2 = Projection.PointToPlane(p0, ConvertFaceToGeometricPlane(face_s[11].Face));
-                if(Distance.PointToPoint(p1,p0) < Distance.PointToPoint(p0,p2))
-                {
-
-                }
-            }
         }
     }
     public class DisplayPrompt

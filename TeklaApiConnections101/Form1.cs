@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using TeklaPH;
 using Line = Tekla.Structures.Geometry3d.Line;
 using Fitting = Tekla.Structures.Model.Fitting;
+using static TeklaPH.Faces;
 
 namespace TeklaApiConnections101
 {
@@ -72,78 +73,26 @@ namespace TeklaApiConnections101
             ModelObject beamObj = _picker.PickObject(Picker.PickObjectEnum.PICK_ONE_OBJECT, "Pick secondary part");
             #endregion
 
-            Beam beam = beamObj as Beam;
-            Beam column = colObj as Beam;
+            Picker picker = new Picker();
+            Beam beam1 = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select the pimary object") as Beam;
+            Beam beam2 = picker.PickObject(Picker.PickObjectEnum.PICK_ONE_PART, "Select the secondary object") as Beam;
+            ArrayList centerLine1 = beam1.GetCenterLine(false), centerLine2 = beam2.GetCenterLine(false);
+            List<Face_> beam1_faces = TeklaPH.Faces.Get_faces(beam1,true);
+
 
             #region CoordinateSystem
-            var beamPart = beam as Beam;
-            Point origin11;
-            if (Distance.PointToPoint(beam.StartPoint, column.EndPoint) < Distance.PointToPoint(beam.EndPoint, column.EndPoint))
-            {
-                origin11 = beam.StartPoint;
-                try
-                {
-                    if (origin11 == null)
-                    {
-                        MessageBox.Show("No point selected. Coordinate System creation aborted");
-                        return;
-                    }
 
-                    var beamCoord = (beam as Part).GetCoordinateSystem();
-                    var workPlaneHandler = new Model().GetWorkPlaneHandler();
-                    var newWorkPlane = new TransformationPlane(beamCoord);
+            #endregion
 
-                    new Model().CommitChanges();
+            #region CUT
+            double gap = 10;//add the gap here
+            Face face = TeklaPH.Fitting.PartFitting(beam1, beam2, gap);
+            double thickness = 10;//add thickness here
+            string material = "43C";//add material here
+            #endregion
 
-                    if (beamCoord == null)
-                        throw new ArgumentNullException(nameof(beamCoord));
-
-                    var gd = new GraphicsDrawer();
-
-                    var origin = beamCoord.Origin;
-                    var xPoint = origin + 400 * beamCoord.AxisX.GetNormal();
-                    var yPoint = origin + 400 * beamCoord.AxisX.Cross(beamCoord.AxisY).GetNormal();
-                    var zPoint = origin + 400 * beamCoord.AxisY.GetNormal();
-
-                    var xColor = new Color(1, 0, 0);
-                    var yColor = new Color(0, 1, 0);
-                    var zColor = new Color(0, 0, 1);
-
-                    gd.DrawLineSegment(origin, xPoint, xColor);
-                    gd.DrawText(xPoint, "X", xColor);
-                    gd.DrawLineSegment(origin, yPoint, yColor);
-                    gd.DrawText(yPoint, "Y", yColor);
-                    gd.DrawLineSegment(origin, zPoint, zColor);
-                    gd.DrawText(zPoint, "Z", zColor);
-
-                    if (!string.IsNullOrWhiteSpace("ORIGIN"))
-                        gd.DrawText(origin, "ORIGIN", new Color(0, 0, 0));
-
-                    if (!workPlaneHandler.SetCurrentTransformationPlane(newWorkPlane))
-                    {
-                        MessageBox.Show("Coordinate System failed to insert");
-                        myModel.CommitChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred");
-                }
-                #endregion
-
-                #region CUT
-                CutPlane cutPlane = new CutPlane();
-                Beam beamStart = beam as Beam;
-                cutPlane.Plane = new Plane();
-                cutPlane.Plane.Origin = new Point(mm2Inch(0.5), 0, 0);
-                cutPlane.Plane.AxisX = new Vector(0, mm2Inch(40), 0);
-                cutPlane.Plane.AxisY = new Vector(0, 0, mm2Inch(-40));
-                cutPlane.Father = beamPart;
-                cutPlane.Insert();
-                #endregion
-
-                #region PLATE
-                Point plStartPt = new Point(0, mm2Inch(8), 0);
+            #region PLATE
+            Point plStartPt = new Point(0, mm2Inch(8), 0);
                 Point plEndPoint = new Point(0, mm2Inch(-8), 0);
                 Beam vPlate = new Beam(plStartPt, plEndPoint);
                 vPlate.Profile.ProfileString = "PL 177.8*12.7";
@@ -177,40 +126,7 @@ namespace TeklaApiConnections101
                 }
                 #endregion
 
-                #region BoltArray
-                Part primaryCol = column as Part;
-                Beam beam_Part = beam as Beam;
-                //Point beamSrtPt = beam_Part.StartPoint;
-                Part secondaryPlate = vPlate;
-                BoltArray bArr = new BoltArray();
-                bArr.Delete();
-                bArr.PartToBoltTo = primaryCol;
-                bArr.PartToBeBolted = secondaryPlate;
-                bArr.FirstPosition = vPlate.StartPoint;
-                bArr.SecondPosition = vPlate.EndPoint;
-                bArr.BoltSize = mm2Inch(1);
-                bArr.Tolerance = 2.00;
-                bArr.BoltStandard = "A325N";
-                bArr.BoltType = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
-                bArr.Length = mm2Inch(3.15);
-                bArr.ThreadInMaterial = BoltGroup.BoltThreadInMaterialEnum.THREAD_IN_MATERIAL_YES;
-                bArr.Position.Depth = Position.DepthEnum.MIDDLE;
-                bArr.Position.Plane = Position.PlaneEnum.MIDDLE;
-                bArr.Position.Rotation = Position.RotationEnum.BELOW;
-
-                bArr.AddBoltDistX(mm2Inch(3.5));
-                bArr.AddBoltDistX(mm2Inch(3.5));
-                bArr.AddBoltDistX(mm2Inch(3.5));
-                bArr.StartPointOffset.Dx = mm2Inch(2.5);
-                bArr.AddBoltDistY(mm2Inch(3.5));
-                if (!bArr.Insert())
-                {
-                    MessageBox.Show("BoltArray Insert Failed");
-                }
-                #endregion
-            }
-            else if (Distance.PointToPoint(beam.StartPoint, column.EndPoint) > Distance.PointToPoint(beam.EndPoint, column.EndPoint))
-            {
+              
                 #region CoordinateSystem
                 origin11 = beam.EndPoint;
                 //ControlPoint CP = new ControlPoint(origin11);
@@ -274,14 +190,7 @@ namespace TeklaApiConnections101
                 #endregion
 
                 #region CUT
-                CutPlane cutPlane = new CutPlane();
-                Beam beamStart = beam as Beam;
-                cutPlane.Plane = new Plane();
-                cutPlane.Plane.Origin = new Point(mm2Inch(0.5), 0, 0);
-                cutPlane.Plane.AxisX = new Vector(0, mm2Inch(40), 0);
-                cutPlane.Plane.AxisY = new Vector(0, 0, mm2Inch(-40));
-                cutPlane.Father = beam;
-                cutPlane.Insert();
+                
                 #endregion
 
                 #region PLATE
@@ -319,42 +228,9 @@ namespace TeklaApiConnections101
                 }
                 #endregion
 
-                #region BoltArray
-                Part primaryCol = column as Part;
-                Beam beam_Part = beam as Beam;
-                Point beamSrtPt = beam_Part.EndPoint;
-                Part secondaryPlate = vPlate;
-                BoltArray bArr = new BoltArray();
-                bArr.Delete();
-                bArr.PartToBoltTo = primaryCol;
-                bArr.PartToBeBolted = secondaryPlate;
-                //bArr.FirstPosition = origin11;
-                bArr.FirstPosition = vPlate.StartPoint;
-                bArr.SecondPosition = vPlate.EndPoint;
-                bArr.BoltSize = mm2Inch(1);
-                bArr.Tolerance = 2.00;
-                bArr.BoltStandard = "A325N";
-                bArr.BoltType = BoltGroup.BoltTypeEnum.BOLT_TYPE_SITE;
-                bArr.Length = mm2Inch(3.15);
-                bArr.ThreadInMaterial = BoltGroup.BoltThreadInMaterialEnum.THREAD_IN_MATERIAL_YES;
-                bArr.Position.Depth = Position.DepthEnum.MIDDLE;
-                bArr.Position.Plane = Position.PlaneEnum.MIDDLE;
-                bArr.Position.Rotation = Position.RotationEnum.BELOW;
-
-                bArr.AddBoltDistX(mm2Inch(3.5));
-                bArr.AddBoltDistX(mm2Inch(3.5));
-                bArr.AddBoltDistX(mm2Inch(3.5));
-                bArr.StartPointOffset.Dx = mm2Inch(2.5);
-                bArr.AddBoltDistY(mm2Inch(3.5));
-                //bArr.Insert();
-                if (!bArr.Insert())
-                {
-                    MessageBox.Show("BoltArray Insert Failed");
-                }
-                #endregion
-            }
-            SetGlobalandStoreOriginal();
-            myModel.CommitChanges();
+                
+               
+           
         }
 
         //  SINGLE GIRT
